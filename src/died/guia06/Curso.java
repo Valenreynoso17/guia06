@@ -2,7 +2,9 @@ package died.guia06;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 import died.guia06.util.Registro;
 
@@ -47,25 +49,42 @@ public class Curso {
 	 * @return
 	 */
 	public Boolean inscribir(Alumno a) {
+		
+		if (this.inscriptos.size() == this.cupo) return false;
+		
 		try {
 			log.registrar(this, "inscribir ",a.toString());
+			this.inscriptos.add(a);
 		} catch (IOException e) {
 			System.out.println("Hubo un problema al momento de registrar: " + e.getMessage());
+			return false;
 		}
-		return false;
+		
+		return true;
 	}
 	
 	
 	/**
 	 * imprime los inscriptos en orden alfabetico
 	 */
-	public void imprimirInscriptos() {
+	public void imprimirInscriptos(Comparator<Alumno> orden) {
 		try {
 			log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
+			
+			// TODO: validar si esto anda minimamente safable
+			this.inscriptos.stream().sorted(orden).forEach((alumno) -> System.out.println(alumno));
+			
 		} catch (IOException e) {
 			System.out.println("Hubo un problema al momento de registrar: " + e.getMessage());
 		}
 	}
 
+	public Integer getCreditos() {
+		return this.creditos;
+	}
+	
+	public Boolean creditosSuficientes(Integer creditosAlumno) {
+		return creditosAlumno > this.creditosRequeridos;
+	}
 
 }
