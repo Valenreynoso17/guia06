@@ -33,20 +33,20 @@ public class Curso {
 	
 
 	/**
-	 * Este m√©todo, verifica si el alumno se puede inscribir y si es as√≠ lo agrega al curso,
-	 * agrega el curso a la lista de cursos en los que est√° inscripto el alumno y retorna verdadero.
+	 * Este mÈtodo, verifica si el alumno se puede inscribir y si es asÌ lo agrega al curso,
+	 * agrega el curso a la lista de cursos en los que est· inscripto el alumno y retorna verdadero.
 	 * Caso contrario retorna falso y no agrega el alumno a la lista de inscriptos ni el curso a la lista
-	 * de cursos en los que el alumno est√° inscripto.
+	 * de cursos en los que el alumno est· inscripto.
 	 * 
 	 * Para poder inscribirse un alumno debe
 	 * 		a) tener como minimo los creditos necesarios
 	 *      b) tener cupo disponibles
-	 *      c) puede estar inscripto en simult√°neo a no m√°s de 3 cursos del mismo ciclo lectivo.
+	 *      c) puede estar inscripto en simult·neo a no m·s de 3 cursos del mismo ciclo lectivo.
 	 * @param a
 	 * @return
 	 */
 	public Boolean inscribir(Alumno a) {
-		log.registrar(this, "inscribir ",a.toString());
+		//log.registrar(this, "inscribir ",a.toString());
 		return false;
 	}
 	
@@ -55,7 +55,7 @@ public class Curso {
 	 * imprime los inscriptos en orden alfabetico
 	 */
 	public void imprimirInscriptos() {
-		log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
+		//log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
 	}
 
 
