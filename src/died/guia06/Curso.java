@@ -6,6 +6,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import died.guia06.excepciones.CreditosRequeridosInsuficientesException;
+import died.guia06.excepciones.CupoLlenoException;
+import died.guia06.excepciones.MateriasCicloLectivoCompleto;
 import died.guia06.util.Registro;
 
 /**
@@ -54,11 +57,13 @@ public class Curso {
 	 * @param a
 	 * @return
 	 */
-	public Boolean inscribir(Alumno a) {
+	private Boolean inscribir(Alumno a) throws CupoLlenoException, CreditosRequeridosInsuficientesException, MateriasCicloLectivoCompleto{
 		
-		if (this.inscriptos.size() == this.cupo) return false;
+		if (this.inscriptos.size() == this.cupo) throw new CupoLlenoException();
 		
-		if (!(a.creditosSuficientes(this.creditosRequeridos) && a.cursosEnCicloLectivo(this.cicloLectivo))) return false;
+		if (! a.creditosSuficientes(this.creditosRequeridos)) throw new CreditosRequeridosInsuficientesException();
+		
+		if (! a.cursosEnCicloLectivo(this.cicloLectivo)) throw new MateriasCicloLectivoCompleto();
 		
 		// Tambien tendria que verificar si no se quiere agregar dos veces el mismo alumno
 		
@@ -66,13 +71,19 @@ public class Curso {
 			log.registrar(this, "inscribir ",a.toString());
 			this.inscriptos.add(a);
 			a.inscripcionAceptada(this);
+			return true;
 			
 		} catch (IOException e) {
 			System.out.println("Hubo un problema al momento de registrar: " + e.getMessage());
 			return false;
 		}
 		
-		return true;
+	}
+	
+	public void inscribirAlumno(Alumno a) throws CupoLlenoException, CreditosRequeridosInsuficientesException, MateriasCicloLectivoCompleto {
+		
+		this.inscribir(a);
+		
 	}
 	
 	/**

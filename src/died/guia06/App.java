@@ -2,6 +2,10 @@ package died.guia06;
 
 import java.util.Comparator;
 
+import died.guia06.excepciones.CreditosRequeridosInsuficientesException;
+import died.guia06.excepciones.CupoLlenoException;
+import died.guia06.excepciones.MateriasCicloLectivoCompleto;
+
 public class App {
 
 	public static void main(String[] args) {
@@ -18,15 +22,27 @@ public class App {
 		Alumno a4 = new Alumno("Alejo Ramirez", 33333);
 		Alumno a5 = new Alumno("Pedro Aznar", 44444);
 		
-		System.out.println(ami.inscribir(a1));
-		System.out.println(fisica.inscribir(a1));
-		System.out.println(syo.inscribir(a1));
-		System.out.println(algoritmos.inscribir(a1));
+		try {
+			ami.inscribirAlumno(a1);
+			fisica.inscribirAlumno(a1);
+			syo.inscribirAlumno(a1);
+			algoritmos.inscribirAlumno(a1);
+		} catch (CupoLlenoException | CreditosRequeridosInsuficientesException | MateriasCicloLectivoCompleto e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		
 		
 		System.out.println(a1.equals(a11));
 		
-		System.out.println(ami.inscribir(a2));
-		System.out.println(matSuperior.inscribir(a2));
+		try {
+			ami.inscribirAlumno(a2);
+			matSuperior.inscribirAlumno(a2);
+		} catch (CupoLlenoException | CreditosRequeridosInsuficientesException | MateriasCicloLectivoCompleto e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		
 		
 		Comparator<Alumno> compAlfabetico = (a,b) -> a.getNombre().compareTo(b.getNombre());
 		Comparator<Alumno> compLegajo = (a,b) -> a.getNroLibreta().compareTo(b.getNroLibreta());
