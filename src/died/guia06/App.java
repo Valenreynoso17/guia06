@@ -52,5 +52,7 @@ public class App {
 		
 		ami.imprimirInscriptos(compAlfabetico);
 		ami.imprimirInscriptos(compLegajo);
+		
+		System.out.println(a1.compareTo(a2));
 	}
 }
