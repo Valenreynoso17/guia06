@@ -5,6 +5,7 @@ import java.util.Comparator;
 import died.guia06.excepciones.CreditosRequeridosInsuficientesException;
 import died.guia06.excepciones.CupoLlenoException;
 import died.guia06.excepciones.MateriasCicloLectivoCompleto;
+import died.guia06.excepciones.RegistroAuditoriaException;
 
 public class App {
 
@@ -27,7 +28,8 @@ public class App {
 			fisica.inscribirAlumno(a1);
 			syo.inscribirAlumno(a1);
 			algoritmos.inscribirAlumno(a1);
-		} catch (CupoLlenoException | CreditosRequeridosInsuficientesException | MateriasCicloLectivoCompleto e) {
+		} catch (	CupoLlenoException | CreditosRequeridosInsuficientesException | 
+					MateriasCicloLectivoCompleto | RegistroAuditoriaException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
@@ -38,7 +40,8 @@ public class App {
 		try {
 			ami.inscribirAlumno(a2);
 			matSuperior.inscribirAlumno(a2);
-		} catch (CupoLlenoException | CreditosRequeridosInsuficientesException | MateriasCicloLectivoCompleto e) {
+		} catch (CupoLlenoException | CreditosRequeridosInsuficientesException |
+				MateriasCicloLectivoCompleto | RegistroAuditoriaException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
