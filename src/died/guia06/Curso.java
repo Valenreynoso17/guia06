@@ -28,12 +28,18 @@ public class Curso {
 	
 	private Registro log;
 	
-	public Curso() {
+	public Curso(Integer id, String nombre, Integer cicloLectivo, Integer cupo, Integer creditos, Integer creditosRequeridos) {
 		super();
 		this.inscriptos = new ArrayList<Alumno>();
 		this.log = new Registro();
+		
+		this.id = id;
+		this.nombre = nombre;
+		this.cicloLectivo = cicloLectivo;
+		this.cupo = cupo;
+		this.creditos = creditos;
+		this.creditosRequeridos = creditosRequeridos;
 	}
-	
 
 	/**
 	 * Este método, verifica si el alumno se puede inscribir y si es así lo agrega al curso,
@@ -52,9 +58,15 @@ public class Curso {
 		
 		if (this.inscriptos.size() == this.cupo) return false;
 		
+		if (!(a.creditosSuficientes(this.creditosRequeridos) && a.cursosEnCicloLectivo(this.cicloLectivo))) return false;
+		
+		// Tambien tendria que verificar si no se quiere agregar dos veces el mismo alumno
+		
 		try {
 			log.registrar(this, "inscribir ",a.toString());
 			this.inscriptos.add(a);
+			a.inscripcionAceptada(this);
+			
 		} catch (IOException e) {
 			System.out.println("Hubo un problema al momento de registrar: " + e.getMessage());
 			return false;
@@ -63,7 +75,6 @@ public class Curso {
 		return true;
 	}
 	
-	
 	/**
 	 * imprime los inscriptos en orden alfabetico
 	 */
@@ -71,8 +82,7 @@ public class Curso {
 		try {
 			log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
 			
-			// TODO: validar si esto anda minimamente safable
-			this.inscriptos.stream().sorted(orden).forEach((alumno) -> System.out.println(alumno));
+			this.inscriptos.stream().sorted(orden).forEach((alumno) -> System.out.println(alumno.toString()));
 			
 		} catch (IOException e) {
 			System.out.println("Hubo un problema al momento de registrar: " + e.getMessage());
@@ -82,9 +92,28 @@ public class Curso {
 	public Integer getCreditos() {
 		return this.creditos;
 	}
-	
-	public Boolean creditosSuficientes(Integer creditosAlumno) {
-		return creditosAlumno > this.creditosRequeridos;
+
+	public Integer getCicloLectivo() {
+		return this.cicloLectivo;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Curso))
+			return false;
+		Curso other = (Curso) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
+	
+	
+	
+	
 }
