@@ -13,5 +13,7 @@ public class Fecha {
 		this.listaPartidos = new ArrayList<Partido>();
 	}
 	
-	
+	public void agregarPartido(Partido p) {
+		this.listaPartidos.add(p);
+	}
 }

@@ -15,5 +15,9 @@ public class Equipo {
 		this.listaJugadores = new ArrayList<Jugador>();
 	}
 	
+	public void agregarJugador(Jugador j) {
+		if (this.listaJugadores.size() < Equipo.cantidadJugadores) this.listaJugadores.add(j); 
+	}
+	
 	
 }
